@@ -19,7 +19,7 @@
     <link href="{{ asset('adminbackend/assets/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('adminbackend/assets/css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('adminbackend/assets/css/icons.css') }}" rel="stylesheet">
-    <title>Rukada - Responsive Bootstrap 5 Admin Template</title>
+    <title>QuizApp</title>
 </head>
 
 <body class="bg-login">
@@ -30,8 +30,8 @@
                 <div class="row row-cols-1 row-cols-lg-2 row-cols-xl-3">
                     <div class="col mx-auto">
                         <div class="mb-4 text-center">
-                            <img src="{{ asset('adminbackend/assets/images/logo-img.png') }}" width="180"
-                                alt="" />
+                            {{-- <img src="{{ asset('adminbackend/assets/images/logo-img.png') }}" width="180"
+                                alt="" /> --}}
                         </div>
                         <div class="card">
                             <div class="card-body">
