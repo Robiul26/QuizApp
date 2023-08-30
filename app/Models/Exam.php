@@ -9,4 +9,6 @@ class Exam extends Model
 {
     use HasFactory;
     protected $guarded = [];
+
+    
 }

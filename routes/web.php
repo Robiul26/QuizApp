@@ -6,6 +6,7 @@ use App\Http\Controllers\Backend\QuestionController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\User\StudentExamController;
 use App\Http\Controllers\UserController;
+use App\Http\Middleware\RedirectIfAuthenticated;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,8 +22,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     // return view('frontend.index');
-    return view('welcome');
-});
+    return view('auth.login');
+})->middleware(RedirectIfAuthenticated::class);
 
 Route::middleware(['auth'])->group(function () {
     Route::get('dashboard', [UserController::class, 'UserDashboard'])->name('dashboard');
@@ -72,7 +73,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
 // User All Route
 Route::middleware(['auth', 'role:user'])->group(function () {
-    Route::get('question-paper', [StudentExamController::class, 'QuestionPaper'])->name('user.question');
+    Route::get('question-paper/{exam_id}', [StudentExamController::class, 'QuestionPaper'])->name('exam-test');
 });
 
 

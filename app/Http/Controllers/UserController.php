@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Exam;
+use App\Models\StudentAssignExam;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -14,6 +15,7 @@ class UserController extends Controller
     {
         $data['userData'] = User::find(Auth::user()->id);
         $data['exams'] = Exam::latest()->get();
+        $data['assign_exams'] = StudentAssignExam::where('user_id', Auth::user()->id)->get();
         return view('user.index', $data);
     }
 
