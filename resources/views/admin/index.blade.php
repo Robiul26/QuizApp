@@ -91,53 +91,58 @@
             <div class="card-body">
                 <div class="d-flex align-items-center">
                     <div>
-                        <h5 class="mb-0">Students</h5>
+                        <h5 class="mb-0">Top Score of Exam</h5>
                     </div>
                     <div class="font-22 ms-auto"><i class="bx bx-dots-horizontal-rounded"></i>
                     </div>
                 </div>
                 <hr>
-                <div class="table-responsive">
-                    <table class="table align-middle mb-0">
-                        <thead class="table-light">
-                            <tr>
-                                <th>Student id</th>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Join Date</th>
-                                <th>Status</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>#897656</td>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <div class="recent-product-img">
-                                            <img src="{{ asset('upload/default.png') }}"
-                                                alt="">
-                                        </div>
-                                        <div class="ms-2">
-                                            <h6 class="mb-1 font-14">StudentName</h6>
-                                        </div>
+                <div class="row">
+                    @if (count($exams) > 0)
+                        @foreach ($exams as $exam)
+                            <div class="col-md-6">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{ $exam->exam_name }}</h5>
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">#SL</th>
+                                                    <th scope="col">Name</th>
+                                                    <th scope="col">Email</th>
+                                                    <th scope="col">Marks</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach ($students as $key => $student)
+                                                    @php
+                                                        $student_results = App\Models\StudentAssignExam::where('user_id', $student->id)
+                                                            ->where('exam_id', $exam->id)
+                                                            ->where('mark', '!=', null)
+                                                            ->orderBy('mark', 'desc')
+                                                            ->get();
+                                                    @endphp
+                                                    @foreach ($student_results as $student_result)
+                                                        <tr>
+                                                            <th scope="row">{{ $key + 1 }}</th>
+                                                            <td>{{ $student_result->user->name }}</td>
+                                                            <td>{{ $student_result->user->email }}</td>
+                                                            
+                                                            <td><span
+                                                                    class="badge bg-warning">{{ $student_result->mark }}</span>
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+
+
                                     </div>
-                                </td>
-                                <td>email@gmail.com</td>
-                                <td>12 Jul 2020</td>
-                                <td>
-                                    <div class="badge rounded-pill bg-light-info text-info w-100">Active
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="d-flex order-actions"> <a href="javascript:;" class=""><i
-                                                class="bx bx-cog"></i></a>
-                                        <a href="javascript:;" class="ms-4"><i class="bx bx-down-arrow-alt"></i></a>
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                                </div>
+                            </div>
+                        @endforeach
+                    @endif
                 </div>
             </div>
         </div>

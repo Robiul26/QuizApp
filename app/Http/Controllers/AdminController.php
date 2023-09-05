@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Exam;
+use App\Models\Question;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -12,7 +14,10 @@ class AdminController extends Controller
 {
     public function AdminDashboard()
     {
-        return view('admin.index');
+        $data['exams'] = Exam::get();
+        $data['students'] = User::where('role', 'user')->get();
+       
+        return view('admin.index', $data);
     }
     public function AdminLogin()
     {
@@ -91,7 +96,7 @@ class AdminController extends Controller
 
     public function AdminStudent()
     {
-        $data['students'] = User::where('role','user')->orderBy('id', 'DESC')->get();
+        $data['students'] = User::where('role', 'user')->orderBy('id', 'DESC')->get();
         return view('backend.student.student_all', $data);
     }
 }

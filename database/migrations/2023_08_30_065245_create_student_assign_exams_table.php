@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('exam_id');
+            $table->string('mark')->nullable();
             $table->timestamps();
         });
     }

@@ -3,6 +3,14 @@
 @section('user')
     <section class="banners pt-5">
         <div class="container">
+
+            <div class="row">
+                <div class="col-md-6"><a href="{{ route('dashboard') }}" class="btn btn-outline-primary">Back</a></div>
+                <div class="col-md-6">
+                   <span class="text-danger fs-5">Left Time  <span id="timer"></span></span>
+                </div>
+
+            </div>
             <form action="{{ route('answer.store') }}" method="POST">
                 @csrf
 
@@ -19,7 +27,8 @@
                                         <li class="list-group-item">
                                             <div class="form-check">
                                                 <input class="form-check-input" type="radio"
-                                                    name="{{ $question->id }}_answer" id="{{ $question->id }}_option_a" value="{{ $question->option_a }}">
+                                                    name="{{ $question->id }}_answer" id="{{ $question->id }}_option_a"
+                                                    value="{{ $question->option_a }}">
                                                 <label class="form-check-label" for="{{ $question->id }}_option_a">
                                                     {{ $question->option_a }}
                                                 </label>
@@ -28,7 +37,8 @@
                                         <li class="list-group-item">
                                             <div class="form-check">
                                                 <input class="form-check-input" type="radio"
-                                                    name="{{ $question->id }}_answer" id="{{ $question->id }}_option_b" value="{{ $question->option_b }}">
+                                                    name="{{ $question->id }}_answer" id="{{ $question->id }}_option_b"
+                                                    value="{{ $question->option_b }}">
                                                 <label class="form-check-label" for="{{ $question->id }}_option_b">
                                                     {{ $question->option_b }}
                                                 </label>
@@ -37,7 +47,8 @@
                                         <li class="list-group-item">
                                             <div class="form-check">
                                                 <input class="form-check-input" type="radio"
-                                                    name="{{ $question->id }}_answer" id="{{ $question->id }}_option_c" value="{{ $question->option_c }}">
+                                                    name="{{ $question->id }}_answer" id="{{ $question->id }}_option_c"
+                                                    value="{{ $question->option_c }}">
                                                 <label class="form-check-label" for="{{ $question->id }}_option_c">
                                                     {{ $question->option_c }}
                                                 </label>
@@ -46,7 +57,8 @@
                                         <li class="list-group-item">
                                             <div class="form-check">
                                                 <input class="form-check-input" type="radio"
-                                                    name="{{ $question->id }}_answer" id="{{ $question->id }}_option_d" value="{{ $question->option_d }}">
+                                                    name="{{ $question->id }}_answer" id="{{ $question->id }}_option_d"
+                                                    value="{{ $question->option_d }}">
                                                 <label class="form-check-label" for="{{ $question->id }}_option_d">
                                                     {{ $question->option_d }}
                                                 </label>
@@ -68,4 +80,46 @@
             </form>
         </div>
     </section>
+    @php
+        $time = 1;
+    @endphp
+    <script type="text/javascript">
+        var timeoutHandle;
+
+        function countdown(minutes) {
+            var seconds = 60;
+            var mins = minutes
+
+            function tick() {
+                var counter = document.getElementById("timer");
+                var current_minutes = mins - 1
+                seconds--;
+                counter.innerHTML =
+                    current_minutes.toString() + ":" + (seconds < 10 ? "0" : "") + String(seconds);
+                if (seconds > 0) {
+                    timeoutHandle = setTimeout(tick, 1000);
+                } else {
+                    if (mins > 1) {
+                        // countdown(mins-1);   never reach “00″ issue solved:Contributed by Victor Streithorst
+                        setTimeout(function() {
+                            countdown(mins - 1);
+                        }, 1000);
+                    }
+                }
+            }
+            tick();
+        }
+        countdown('<?php echo $time; ?>');
+    </script>
+
+    <!-- script for disable url -->
+    <script type="text/javascript">
+        var time = '<?php echo $time; ?>';
+        var realtime = time * 60000;
+        setTimeout(function() {
+                alert('Your Time Out!!');
+                window.location.href = "{{ route('dashboard') }}";
+            },
+            realtime);
+    </script>
 @endsection

@@ -10,5 +10,8 @@ class Exam extends Model
     use HasFactory;
     protected $guarded = [];
 
-    
+    public function assign_students()
+    {
+        return $this->hasMany(StudentAssignExam::class);
+    }
 }

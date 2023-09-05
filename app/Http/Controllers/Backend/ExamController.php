@@ -15,7 +15,7 @@ class ExamController extends Controller
     // All Exam
     public function Allexam()
     {
-        $data['exams'] = Exam::latest()->get();
+        $data['exams'] = Exam::with('assign_students')->latest()->get();
         return view('backend.exam.exam_all', $data);
     }
 
