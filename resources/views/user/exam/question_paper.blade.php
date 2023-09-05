@@ -7,7 +7,7 @@
             <div class="row">
                 <div class="col-md-6"><a href="{{ route('dashboard') }}" class="btn btn-outline-primary">Back</a></div>
                 <div class="col-md-6">
-                   <span class="text-danger fs-5">Left Time  <span id="timer"></span></span>
+                    <span class="text-danger fs-5">Left Time <span id="timer"></span></span>
                 </div>
 
             </div>
@@ -81,7 +81,7 @@
         </div>
     </section>
     @php
-        $time = 1;
+        $time = session()->get('left_time');
     @endphp
     <script type="text/javascript">
         var timeoutHandle;
@@ -100,9 +100,9 @@
                     timeoutHandle = setTimeout(tick, 1000);
                 } else {
                     if (mins > 1) {
-                        // countdown(mins-1);   never reach “00″ issue solved:Contributed by Victor Streithorst
                         setTimeout(function() {
                             countdown(mins - 1);
+
                         }, 1000);
                     }
                 }

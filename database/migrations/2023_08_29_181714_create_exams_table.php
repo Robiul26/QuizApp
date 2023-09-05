@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('exam_name');
             $table->string('exam_validity');
+            $table->string('left_time');
             $table->timestamps();
         });
     }

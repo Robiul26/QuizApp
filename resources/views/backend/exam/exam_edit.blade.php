@@ -47,6 +47,14 @@
                     </div>
                     <div class="row mb-3">
                         <div class="col-sm-3">
+                            <h6 class="mb-0">Left Time</h6>
+                        </div>
+                        <div class=" form-group col-sm-9 text-secondary">
+                            <input type="number" name="left_time" class="form-control" value="{{ $exam->left_time }}" />
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-sm-3">
                             <h6 class="mb-0">Assign To</h6>
                         </div>
                         <div class=" form-group col-sm-9 text-secondary">

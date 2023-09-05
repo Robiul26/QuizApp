@@ -59,6 +59,20 @@
                     </div>
                     <div class="row mb-3">
                         <div class="col-sm-3">
+                            <h6 class="mb-0">Left Time (min)</h6>
+                        </div>
+                        <div class=" form-group col-sm-9 text-secondary">
+                            <input type="number" name="left_time" class="form-control" value="{{ old('left_time') }}" />
+                            @error('left_time')
+                                <div class="text-danger">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-sm-3">
                             <h6 class="mb-0">Assign To</h6>
                         </div>
                         <div class=" form-group col-sm-9 text-secondary">

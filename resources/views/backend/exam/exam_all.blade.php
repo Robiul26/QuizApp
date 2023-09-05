@@ -30,6 +30,7 @@
                                 <th>Sl</th>
                                 <th>Exam Name</th>
                                 <th> Validity</th>
+                                <th> Left Time</th>
                                 <th> Question</th>
                                 <th> Assign Students</th>
                                 <th> Status</th>
@@ -45,6 +46,7 @@
                                     <td>{{ $key + 1 }}</td>
                                     <td>{{ $item->exam_name }}</td>
                                     <td>{{ Carbon\Carbon::parse($item->exam_validity)->format('D, d F Y') }}</td>
+                                    <td>{{ $item->left_time }} min</td>
                                     <td><a href="{{ route('all.question', $item->id) }}" class="btn btn-secondary">Show
                                             Questions ({{ $question_count }})</a></td>
                                     <td>
@@ -119,6 +121,7 @@
                                 <th>Sl</th>
                                 <th>Exam Name</th>
                                 <th> Validity</th>
+                                <th> Left Time</th>
                                 <th> Question</th>
                                 <th> Assign Students</th>
                                 <th> Status</th>

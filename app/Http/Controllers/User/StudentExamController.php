@@ -18,6 +18,10 @@ class StudentExamController extends Controller
     {
         $assign_check = StudentAssignExam::where('user_id', Auth::user()->id)->where('exam_id', $exam_id)->count();
         if ($assign_check) {
+            $left_time = Exam::where('id', $exam_id)->first()->left_time;
+
+            session()->put('left_time', $left_time);
+
             $data['results'] = StudentAnswer::where('user_id', Auth::user()->id)->where('exam_id', $exam_id)->get();
             if (count($data['results']) > 0) {
                 $data['total_correct'] = 0;
@@ -48,7 +52,7 @@ class StudentExamController extends Controller
             if ($question->question_answer == request($question->id . '_answer')) {
                 $total_mark += 1;
             }
-            if (request($question['id'] . '_answer')) {                
+            if (request($question['id'] . '_answer')) {
                 $answer = new StudentAnswer();
                 $answer->user_id = Auth::user()->id;
                 $answer->exam_id = $request->exam_id;

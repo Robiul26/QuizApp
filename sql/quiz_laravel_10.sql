@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Aug 30, 2023 at 01:27 PM
+-- Generation Time: Sep 05, 2023 at 11:41 AM
 -- Server version: 8.0.31
 -- PHP Version: 8.1.12
 
@@ -32,6 +32,7 @@ CREATE TABLE IF NOT EXISTS `exams` (
   `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
   `exam_name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `exam_validity` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `left_time` int NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -41,11 +42,11 @@ CREATE TABLE IF NOT EXISTS `exams` (
 -- Dumping data for table `exams`
 --
 
-INSERT INTO `exams` (`id`, `exam_name`, `exam_validity`, `created_at`, `updated_at`) VALUES
-(1, '1st Exam', '2023-09-01', '2023-08-29 12:52:59', NULL),
-(2, '2nd Exam', '2023-09-05', '2023-08-29 13:34:31', '2023-08-29 13:34:31'),
-(3, '3rd Exam', '2023-09-07', '2023-08-29 23:46:51', NULL),
-(5, '4th Exam', '2023-08-31', '2023-08-30 02:11:47', '2023-08-30 02:11:47');
+INSERT INTO `exams` (`id`, `exam_name`, `exam_validity`, `left_time`, `created_at`, `updated_at`) VALUES
+(1, '1st Exam', '2023-09-05', 3, '2023-08-29 12:52:59', '2023-09-05 05:12:26'),
+(2, '2nd Exam', '2023-09-05', 1, '2023-08-29 13:34:31', '2023-09-05 05:12:17'),
+(3, '3rd Exam', '2023-09-07', 2, '2023-08-29 23:46:51', '2023-09-05 05:12:08'),
+(5, '4th Exam', '2023-09-21', 1, '2023-08-30 02:11:47', '2023-09-05 05:12:00');
 
 -- --------------------------------------------------------
 
@@ -78,7 +79,7 @@ CREATE TABLE IF NOT EXISTS `migrations` (
   `migration` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `migrations`
@@ -91,7 +92,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (4, '2019_12_14_000001_create_personal_access_tokens_table', 1),
 (5, '2023_08_29_181714_create_exams_table', 2),
 (6, '2023_08_29_191002_create_questions_table', 3),
-(7, '2023_08_30_065245_create_student_assign_exams_table', 4);
+(7, '2023_08_30_065245_create_student_assign_exams_table', 4),
+(8, '2023_09_04_182815_create_student_answers_table', 5);
 
 -- --------------------------------------------------------
 
@@ -150,16 +152,35 @@ CREATE TABLE IF NOT EXISTS `questions` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `questions`
 --
 
 INSERT INTO `questions` (`id`, `question_name`, `question_answer`, `option_a`, `option_b`, `option_c`, `option_d`, `status`, `exam_id`, `created_at`, `updated_at`) VALUES
-(1, 'What is PHP?', 'Hypertext Preposessor', 'Hyper text Markup language', 'casecade text', 'javascript', 'c++', 'active', 2, '2023-08-29 14:40:34', '2023-08-29 14:40:34'),
-(3, 'What is Flutter?', 'Mobile App Development Framework', 'Mobile App Development Framework', 'Programming Language', 'Technology', 'Information Technology', 'active', 2, '2023-08-30 00:38:13', '2023-08-30 00:38:13'),
-(4, 'What is CSE?', 'Computer Science Engineering', 'Computer Science Engineering', 'NT Science Engineering', 'Development', 'Software', 'active', 3, '2023-08-30 00:27:52', NULL);
+(1, 'What is PHP?', 'Hypertext Preposessor', 'Hypertext Preposessor', 'casecade text', 'javascript', 'c++', 'active', 2, '2023-08-29 14:40:34', '2023-08-29 14:40:34'),
+(3, 'What is React?', 'Mobile App Development Framework', 'Mobile App Development Framework', 'Programming Language', 'Technology', 'Information Technology', 'active', 2, '2023-08-30 00:38:13', '2023-08-30 00:38:13'),
+(4, 'What is CSE?', 'Computer Science Engineering', 'Computer Science Engineering', 'NT Science Engineering', 'Development', 'Software', 'active', 3, '2023-08-30 00:27:52', NULL),
+(5, 'What is Flutter?', 'html', 'html', 'css', 'javascript', 'None of these', 'active', 2, '2023-08-31 01:17:58', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `student_answers`
+--
+
+DROP TABLE IF EXISTS `student_answers`;
+CREATE TABLE IF NOT EXISTS `student_answers` (
+  `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
+  `user_id` bigint UNSIGNED NOT NULL,
+  `exam_id` bigint UNSIGNED NOT NULL,
+  `question_id` bigint UNSIGNED NOT NULL,
+  `answer` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -172,18 +193,23 @@ CREATE TABLE IF NOT EXISTS `student_assign_exams` (
   `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
   `user_id` bigint UNSIGNED NOT NULL,
   `exam_id` bigint UNSIGNED NOT NULL,
+  `mark` int DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=33 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `student_assign_exams`
 --
 
-INSERT INTO `student_assign_exams` (`id`, `user_id`, `exam_id`, `created_at`, `updated_at`) VALUES
-(3, 2, 5, '2023-08-30 05:38:25', '2023-08-30 05:38:25'),
-(4, 3, 5, '2023-08-30 05:38:25', '2023-08-30 05:38:25');
+INSERT INTO `student_assign_exams` (`id`, `user_id`, `exam_id`, `mark`, `created_at`, `updated_at`) VALUES
+(28, 3, 5, NULL, '2023-09-05 05:12:00', '2023-09-05 05:12:00'),
+(27, 2, 5, NULL, '2023-09-05 05:12:00', '2023-09-05 05:12:00'),
+(29, 3, 3, NULL, '2023-09-05 05:12:08', '2023-09-05 05:12:08'),
+(31, 3, 2, NULL, '2023-09-05 05:12:17', '2023-09-05 05:12:17'),
+(30, 2, 2, NULL, '2023-09-05 05:12:17', '2023-09-05 05:12:17'),
+(32, 3, 1, NULL, '2023-09-05 05:12:26', '2023-09-05 05:12:26');
 
 -- --------------------------------------------------------
 

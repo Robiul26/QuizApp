@@ -31,12 +31,14 @@ class ExamController extends Controller
         // Validation
         $request->validate([
             'exam_name' => 'required',
-            'exam_validity' => 'required'
+            'exam_validity' => 'required',
+            'left_time' => 'required'
         ]);
 
         $exam = new Exam();
         $exam->exam_name = $request->exam_name;
         $exam->exam_validity = $request->exam_validity;
+        $exam->left_time = $request->left_time;
         $exam->save();
 
         if (count($request->assign_to) > 0) {
@@ -71,12 +73,14 @@ class ExamController extends Controller
         // Validation
         $request->validate([
             'exam_name' => 'required',
-            'exam_validity' => 'required'
+            'exam_validity' => 'required',
+            'left_time' => 'required'
         ]);
 
         $exam = Exam::find($id);
         $exam->exam_name = $request->exam_name;
         $exam->exam_validity = $request->exam_validity;
+        $exam->left_time = $request->left_time;
         $exam->update();
 
         if ($exam->update()) {
