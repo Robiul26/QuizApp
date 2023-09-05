@@ -74,6 +74,8 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 // User All Route
 Route::middleware(['auth', 'role:user'])->group(function () {
     Route::get('question-paper/{exam_id}', [StudentExamController::class, 'QuestionPaper'])->name('exam-test');
+    Route::post('answer/store', [StudentExamController::class, 'AnswerStore'])->name('answer.store');
+    // Route::get('result/{exam_id}', [StudentExamController::class, 'ResultView'])->name('result.view');
 });
 
 
