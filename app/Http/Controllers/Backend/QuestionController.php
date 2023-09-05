@@ -72,8 +72,6 @@ class QuestionController extends Controller
             'option_b' => $request->option_b,
             'option_c' => $request->option_c,
             'option_d' => $request->option_d,
-            'exam_id' => 2,
-            'status' => 'active',
             'created_at' => Carbon::now()
         ]);
 

@@ -14,4 +14,8 @@ class Exam extends Model
     {
         return $this->hasMany(StudentAssignExam::class);
     }
+    public function questions()
+    {
+        return $this->hasMany(Question::class);
+    }
 }

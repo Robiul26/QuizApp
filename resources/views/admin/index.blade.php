@@ -127,9 +127,9 @@
                                                             <th scope="row">{{ $key + 1 }}</th>
                                                             <td>{{ $student_result->user->name }}</td>
                                                             <td>{{ $student_result->user->email }}</td>
-                                                            
-                                                            <td><span
-                                                                    class="badge bg-warning">{{ $student_result->mark }}</span>
+
+                                                            <td><span class="badge bg-warning">{{ $student_result->mark }}
+                                                                    out of {{ $exam->questions->count() }}</span>
                                                             </td>
                                                         </tr>
                                                     @endforeach

@@ -62,7 +62,7 @@
                                     </td>
                                     <td>
                                         <button type="button" class="btn btn-info" data-bs-toggle="modal"
-                                            data-bs-target="#staticEdit">
+                                            data-bs-target="#staticEdit_{{ $item->id }}">
                                             Edit
                                         </button>
                                         <a href="{{ route('delete.question', $item->id) }}" id="delete"
@@ -71,8 +71,9 @@
                                 </tr>
 
                                 <!-- Modal -->
-                                <div class="modal fade" id="staticEdit" data-bs-backdrop="static" data-bs-keyboard="false"
-                                    tabindex="-1" aria-labelledby="staticEditLabel" aria-hidden="true">
+                                <div class="modal fade" id="staticEdit_{{ $item->id }}" data-bs-backdrop="static"
+                                    data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticEditLabel"
+                                    aria-hidden="true">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header">

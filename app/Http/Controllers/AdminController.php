@@ -14,7 +14,7 @@ class AdminController extends Controller
 {
     public function AdminDashboard()
     {
-        $data['exams'] = Exam::get();
+        $data['exams'] = Exam::with('questions')->get();
         $data['students'] = User::where('role', 'user')->get();
        
         return view('admin.index', $data);
